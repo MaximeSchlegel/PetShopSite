@@ -1,0 +1,31 @@
+<div>
+    <a href="{% url 'petshopmanager:animals_list' %}">
+        <button>Manage Animal</button>
+    </a>
+</div>
+
+<div>
+    <a href="{% url 'petshopmanager:equipments_list' %}">
+        <button>Manage Equipment</button>
+    </a>
+</div>
+
+{% if animals_list %}
+    <ul>
+        {% for animal in animals_list %}
+        <li><a href="{% url 'petshopmanager:animal_detail' animal.id %}">{{ animal.name }}</a> : {{ animal.state }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No animals are available</p>
+{% endif %}
+
+{% if equipments_list %}
+    <ul>
+        {% for equipment in equipments_list %}
+        <li><a href="{% url 'petshopmanager:equipment_detail' equipment.id %}">{{ equipment.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No equipments are available</p>
+{% endif %}

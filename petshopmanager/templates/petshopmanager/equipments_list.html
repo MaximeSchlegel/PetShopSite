@@ -1,0 +1,17 @@
+<div>
+    <a href="{% url 'petshopmanager:index' %}">
+        <button>return</button>
+    </a>
+</div>
+<p>Equip list :</p>
+{{ equipments_list }}
+
+<p>Used By:</p>
+{{ used_by }}
+
+<p>Form</p>
+<form action="{% url 'petshopmanager:equipment_add' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="form">
+</form>

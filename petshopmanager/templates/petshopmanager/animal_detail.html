@@ -1,0 +1,52 @@
+<div>
+    <a href="{% url 'petshopmanager:index' %}">
+        <button>return</button>
+    </a>
+</div>
+
+<div>
+    <div>
+        <h1>{{ animal.name }}</h1>
+    </div>
+
+    <div>
+        {{ animal.type }} <br>
+        {{ animal.race }}
+    </div>
+
+    <div>
+        {{ animal.state }}
+    </div>
+</div>
+
+{% if error_message %}
+    <div>
+        <p><strong>{{ error_message }}</strong></p>
+    </div>
+{% endif %}
+
+<div>
+    {{ animal.place }}
+</div>
+
+<div>
+    <form action="{% url 'petshopmanager:feed' animal.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Feed</button>
+    </form>
+
+    <form action="{% url 'petshopmanager:entertain' animal.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Entertain</button>
+    </form>
+
+    <form action="{% url 'petshopmanager:sleep' animal.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Sleep</button>
+    </form>
+
+    <form action="{% url 'petshopmanager:wake_up' animal.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Wake Up</button>
+    </form>
+</div>
