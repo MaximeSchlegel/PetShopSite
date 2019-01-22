@@ -6,49 +6,81 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <title>Manage Equipment</title>
+    <title>Manage Equipments</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>Pet Shop Manager</h1>
-            </div>
+    <div class="container py-2 border bg-secondary">
+        <div class="row align-items-center px-4">
+            <h1 class="col">Pet Shop Manager</h1>
             <div class="col-3">
-                <a class="btn btn-primary btn-large" href="{% url 'petshopmanager:index'%}">Main Menu</a>
+                <a class="btn btn-primary btn-lg" href="{% url 'petshopmanager:index' %}">Main Menu</a>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-3">
-                <p>Add New Equipment</p>
-                <form action="{% url 'petshopmanager:equipment_add' %}" method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <input class="btn btn-secondary" type="submit" value="Add">
-                </form>
+        <div class="row px-2 py-2">
+            <div class="col-3 px-2">
+                <div class="px-2 border bg-light">
+                    <h5 align="center">Add New Equipment:</h5>
+                    <form action="{% url 'petshopmanager:equipment_add' %}" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                {{ field.errors }}
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <input class="btn btn-primary" type="submit" value="Add">
+                    </form>
+                </div>
             </div>
-            <div class="col">
-                <p>Equip list :</p>
-                {{ equipments_list }}
 
-                <p>Used By:</p>
-                {{ used_by }}
+            <div class="col px-2">
+                {% if equipments_list %}
+                    {% for equipment in equipments_list %}
+                        <div class="m-1 px-2 py-2 border bg-light">
+                            <div class="row">
+                                <div class="col">
+                                    <h3>{{ equipment.name }}</h3>
+                                </div>
+                                {% if equipment.type != 'LI' %}
+                                <div class="col" align="right">
+                                    <a class="btn btn-success" href="{% url 'petshopmanager:equipment_free' equipment.id %}">Free Equipment</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% if error_message%}
+                                {% if error_equipement == equipment.id %}
+                                    <div class="row">
+                                        <p class="col text-danger">{{ error_message }}</p>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                            <div class="row">
+                                {% if used_by|get_item:equipment.id %}
+                                    <h5 class="col-2">Used By:</h5>
+                                    <div class="col">
+                                        {% for item in used_by|get_item:equipment.id %}
+                                            {{ item }}
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <b class="col">Free</b>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <p>No animals are available.</p>
+                {% endif %}
             </div>
         </div>
     </div>
-
-
-    <div>
-
-    </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>
 
 

@@ -14,6 +14,7 @@ urlpatterns = [
     path('animals/<int:pk>/wake_up/', views.wake_up, name='wake_up'),
     path('equipments/list/', views.equipments_list, name='equipments_list'),
     path('equipments/add/', views.equipment_add, name='equipment_add'),
-    path('equipments/<int:pk>/', views.equipment_detail, name='equipment_detail')
+    path('equipments/<int:pk>/', views.equipment_detail, name='equipment_detail'),
+    path('equipments/<int:pk>/free/', views.equipment_free, name='equipment_free')
 
 ]

@@ -8,10 +8,10 @@ class Equipment(models.Model):
     WHEEL = 'WH'
     NEST = 'NE'
     FEEDER = 'FE'
-    TYPE_CHOICE = ((LITTER, 'Litire'),
-                   (FEEDER,'Mangeoire'),
-                   (WHEEL, 'Roue'),
-                   (NEST, 'Nid'))
+    TYPE_CHOICE = ((LITTER, 'Litter'),
+                   (FEEDER,'Feeder'),
+                   (WHEEL, 'Wheel'),
+                   (NEST, 'Nest'))
     name = models.CharField(max_length = 200)
     availability = models.BooleanField(default=True)
     type = models.CharField(max_length=2, choices=TYPE_CHOICE, default=LITTER)
@@ -34,6 +34,12 @@ class Equipment(models.Model):
     def used_by(self):
         return Animal.objects.filter(place=self)
 
+    def remove_animal(self, target):
+        if not self.availability and target:
+            for animal in self.used_by():
+                animal.change_place(target)
+
+
 
 class EquipementForm(forms.ModelForm):
     class Meta:
@@ -51,10 +57,10 @@ class Animal(models.Model):
     TIRED = 'TI'
     SATED = 'SA'
     SLEEP = 'SL'
-    STATE_CHOICE = ((HUNGRY, 'affame'),
-                    (TIRED, 'fatigue'),
-                    (SATED, 'repus'),
-                    (SLEEP, 'endormi'))
+    STATE_CHOICE = ((HUNGRY, 'Hungry'),
+                    (TIRED, 'Tired'),
+                    (SATED, 'Sated'),
+                    (SLEEP, 'Spleeping'))
     name = models.CharField(max_length = 200)
     race = models.CharField(max_length = 200)
     type = models.CharField(max_length = 200)

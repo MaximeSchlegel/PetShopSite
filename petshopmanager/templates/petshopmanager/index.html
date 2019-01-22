@@ -10,66 +10,47 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>Pet Shop Manager</h1>
-            </div>
+    <div class="container py-2 border bg-secondary">
+        <div class="row px-4">
+                <h1 class="col">Pet Shop Manager</h1>
         </div>
 
         <div class="row">
             <div class="col">
-                <a class="btn btn-primary btn-lg btn-block" href ="{% url 'petshopmanager:animals_list' %}" >Manage Animal</a>
+                <a class="btn btn-primary btn-lg btn-block" href ="{% url 'petshopmanager:animals_list' %}" >View All Animals</a>
             </div>
             <div class="col">
                 <a class="btn btn-primary btn-lg btn-block" href="{% url 'petshopmanager:equipments_list' %}" >Manage Equipment</a>
             </div>
         </div>
 
-        <div class="row">
-            <p class="col">
-                Animals :
-            </p>
+        <div class="row px-4 py-3">
+            <h3 class="col">Animals in need of care:</h3>
         </div>
 
-        <div class="row">
-            {% if animals_list %}
-                {% for animal in animals_list %}
-                    <div class="col">
-                        <a href="{% url 'petshopmanager:animal_detail' animal.id %}">{{ animal.name }}</a> : {{ animal.state }} {{ animal.place }}
+        <div class="row px-2">
+                {% if animals_list %}
+                    {% for animal in animals_list %}
+                        <div class="col-lg-4 col-md-6 px-1 py-1">
+                            <div class="px-2 py-2 border bg-light">
+                                <div class="row">
+                                    <div class="col">
+                                        <h2><a href="{% url 'petshopmanager:animal_detail' animal.id %}">{{ animal.name }}</a></h2>
+                                        {{ animal.place }}
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="col" align="right">{{ animal.state }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="row">
+                        <p>No animals are available</p>
                     </div>
-                {% endfor %}
-            {% else %}
-                <div class="col">
-                    <p>No animals are available</p>
-                </div>
-            {% endif %}
-        </div>
-
-        <div class="row">
-            <p class="col">
-                Equipments :
-            </p>
-        </div>
-
-        <div class="row">
-            {% if equipments_list %}
-                {% for equipment in equipments_list %}
-                    <div class="col">
-                        <a href="{% url 'petshopmanager:equipment_detail' equipment.id %}">{{ equipment.name }}</a>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="col">
-                    <p>No equipments are available</p>
-                </div>
-            {% endif %}
+                {% endif %}
         </div>
     </div>
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </body>
 </html>
