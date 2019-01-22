@@ -1,31 +1,75 @@
-<div>
-    <a href="{% url 'petshopmanager:animals_list' %}">
-        <button>Manage Animal</button>
-    </a>
-</div>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<div>
-    <a href="{% url 'petshopmanager:equipments_list' %}">
-        <button>Manage Equipment</button>
-    </a>
-</div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-{% if animals_list %}
-    <ul>
-        {% for animal in animals_list %}
-        <li><a href="{% url 'petshopmanager:animal_detail' animal.id %}">{{ animal.name }}</a> : {{ animal.state }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No animals are available</p>
-{% endif %}
+    <title>Index</title>
+</head>
 
-{% if equipments_list %}
-    <ul>
-        {% for equipment in equipments_list %}
-        <li><a href="{% url 'petshopmanager:equipment_detail' equipment.id %}">{{ equipment.name }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No equipments are available</p>
-{% endif %}
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>Pet Shop Manager</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary btn-lg btn-block" href ="{% url 'petshopmanager:animals_list' %}" >Manage Animal</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-primary btn-lg btn-block" href="{% url 'petshopmanager:equipments_list' %}" >Manage Equipment</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <p class="col">
+                Animals :
+            </p>
+        </div>
+
+        <div class="row">
+            {% if animals_list %}
+                {% for animal in animals_list %}
+                    <div class="col">
+                        <a href="{% url 'petshopmanager:animal_detail' animal.id %}">{{ animal.name }}</a> : {{ animal.state }} {{ animal.place }}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col">
+                    <p>No animals are available</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            <p class="col">
+                Equipments :
+            </p>
+        </div>
+
+        <div class="row">
+            {% if equipments_list %}
+                {% for equipment in equipments_list %}
+                    <div class="col">
+                        <a href="{% url 'petshopmanager:equipment_detail' equipment.id %}">{{ equipment.name }}</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col">
+                    <p>No equipments are available</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
