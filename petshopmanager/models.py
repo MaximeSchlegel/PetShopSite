@@ -79,7 +79,7 @@ class Animal(models.Model):
             raise forms.ValidationError ('You have enter an invalid state')
 
     def change_place(self, new_place):
-        if new_place.is_available:
+        if new_place.is_available():
             self.place.free()
             self.place = new_place
             self.last_move_date = timezone.now()
